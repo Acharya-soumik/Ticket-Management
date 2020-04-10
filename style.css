@@ -4,15 +4,15 @@
   justify-content: space-evenly;
 }
 .icon.is_active {
-  background-color: green;
+  background-color: rgb(70, 70, 70);
 }
 .icon {
   border-radius: 10%;
   height: 30px;
   width: 30px;
 }
-#book_movie {
-  height: 80vh;
+#seats {
+  height: 60vh;
   width: 30vw;
   margin: auto;
   border: 2px solid black;

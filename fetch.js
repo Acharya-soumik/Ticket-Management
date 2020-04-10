@@ -1,10 +1,12 @@
+let movies = JSON.parse(localStorage.getItem("movies"));
+let id = JSON.parse(localStorage.getItem("id"));
+let movieSec = document.getElementById("seats");
+let paySec = document.getElementById("payment");
+let cur_movie;
+price = 0;
+
 function loadPage() {
-  let movies = JSON.parse(localStorage.getItem("movies"));
-  let id = JSON.parse(localStorage.getItem("id"));
-  let movieSec = document.getElementById("book_movie");
   let div = document.createElement("div");
-  var price = 0;
-  let cur_movie;
   for (key in movies) {
     if (key.id == id) {
       cur_movie = movies[key];
@@ -18,7 +20,6 @@ function loadPage() {
     ${cur_movie.seats.map((ele, idx) => {
       if (ele) {
         return `<img
-            onclick="select(${idx})"
             class="icon is_active"
             src="https://image.flaticon.com/icons/svg/2052/2052398.svg"
           />`;
@@ -32,11 +33,26 @@ function loadPage() {
     })}
     </div>
   </div>
-  <h2>Total Price : ${price}</h2>`;
+  `;
 
   movieSec.appendChild(div);
 }
 window.addEventListener("DOMContentLoaded", loadPage);
+let tiks = [];
 function select(idx) {
-  alert(idx);
+  let div = document.createElement("div");
+  if (tiks[idx] == true) {
+    event.target.style.backgroundColor = "";
+    price -= cur_movie.price;
+    delete tiks[idx];
+  } else {
+    tiks[idx] = true;
+    price += cur_movie.price;
+    event.target.style.backgroundColor = "green";
+  }
+  div.innerHTML = `<h2>your total cost is ${price}</h2>
+                    <button>Payment</button>`;
+  paySec.innerHTML = "";
+  paySec.appendChild(div);
+  console.log(tiks);
 }
