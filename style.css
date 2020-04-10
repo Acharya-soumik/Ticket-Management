@@ -1,7 +1,4 @@
 #book_now {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
 }
 .icon.is_active {
   background-color: rgb(70, 70, 70);
@@ -12,8 +9,4 @@
   width: 30px;
 }
 #seats {
-  height: 60vh;
-  width: 30vw;
-  margin: auto;
-  border: 2px solid black;
 }
