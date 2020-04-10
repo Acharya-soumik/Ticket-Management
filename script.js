@@ -20,13 +20,6 @@ function loadCard() {
   payment();
 }
 
-function payment(price = 0) {
-  let div = document.createElement("div");
-  let data = `<h2>Price is ${price}</h2>
-            <button>payment</button>`;
-  div.innerHTML = data;
-  secMovie.appendChild(div);
-}
 // on load
 window.addEventListener("DOMContentLoaded", loadCard);
 

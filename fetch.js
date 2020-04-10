@@ -1,14 +1,14 @@
-let movies = JSON.parse(localStorage.getItem("movies"));
-let id = JSON.parse(localStorage.getItem("id"));
+var movies = JSON.parse(localStorage.getItem("movies"));
+let id = JSON.parse(localStorage.getItem("curPage"));
 let movieSec = document.getElementById("seats");
 let paySec = document.getElementById("payment");
-let cur_movie;
 price = 0;
 
+let cur_movie;
 function loadPage() {
   let div = document.createElement("div");
   for (key in movies) {
-    if (key.id == id) {
+    if (movies[key].id == id.id) {
       cur_movie = movies[key];
     }
   }
@@ -51,8 +51,23 @@ function select(idx) {
     event.target.style.backgroundColor = "green";
   }
   div.innerHTML = `<h2>your total cost is ${price}</h2>
-                    <button>Payment</button>`;
+                    <button onclick ="payment()">Payment</button>`;
   paySec.innerHTML = "";
   paySec.appendChild(div);
-  console.log(tiks);
+}
+function payment() {
+  for (let i = 0; i < tiks.length; i++) {
+    if (tiks[i]) {
+      cur_movie.seats[i] = true;
+    }
+  }
+  let movieName = cur_movie.name;
+  for (key in movies) {
+    if (movies[key].name == movieName) {
+      movies[key].seats = cur_movie.seats;
+    }
+  }
+  localStorage.setItem("movies", JSON.stringify(movies));
+  movieSec.innerHTML = "";
+  loadPage();
 }
