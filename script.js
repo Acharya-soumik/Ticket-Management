@@ -1,9 +1,13 @@
 var secMovie = document.getElementById("book_now");
+var data = localStorage.getItem("movies");
 
-function loadCard() {
-  var data = localStorage.getItem("movies");
-  data = JSON.parse(data);
-  data.forEach((ele) => {
+function loadCard(value) {
+  if (value == event) {
+    allMovies = JSON.parse(data);
+  } else {
+    allMovies = value;
+  }
+  allMovies.forEach((ele) => {
     let div = document.createElement("div");
     div.className = "col-md-4 m-4";
     let card = "";
@@ -11,33 +15,21 @@ function loadCard() {
     <img src=${ele.img} style="height:430px; width:100%" class="card-img-top" alt="card poster">
     <div class="card-body">
     <h3 class="card-title">${ele.name}</h3>
-    <div id="accordion">
+    <div class="accordion" id="accordionExample">
     <div class="">
-      <div class="" id="headingOne">
-        <h5 class="mb-0">
-          <button
-            class="btn btn-outline-dark"
-            data-toggle="collapse"
-            data-target=#${ele.name}
-            aria-expanded="true"
-            aria-controls="collapseOne"
-          >
-            view description
-          </button>
-        </h5>
-      </div>
-
-      <div
-        id=${ele.name}
-        class="collapse show"
-        aria-labelledby="headingOne"
-        data-parent="#accordion"
-      >
-        <div class="card-body">
-          ${ele.desc}
-        </div>
+    <div class="" id="headingTwo">
+      <h2 class="mb-0">
+        <small class="text-dark" type="buttoallMovies-toggle="collapsallMovies-target=#${ele.name} aria-expanded="false" aria-controls="${ele.name}">
+          view description...
+        </small>
+      </h2>
+    </div>
+    <div id=${ele.name} class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+      ${ele.desc}
       </div>
     </div>
+  </div>
   </div>
     <button onclick ="newMovie(${ele.id})" class="btn btn-primary mt-4">Book Now</button>
     </div>
@@ -45,7 +37,6 @@ function loadCard() {
     div.innerHTML = card;
     secMovie.appendChild(div);
   });
-  payment();
 }
 
 // on load
@@ -55,3 +46,30 @@ function newMovie(id) {
   localStorage.setItem("curPage", JSON.stringify({ id }));
   window.location = "/movie.html";
 }
+
+// filter
+let filter_lang = document.getElementById("filter_language");
+let filter_genre = document.getElementById("filter_genre");
+
+function changeHandlerGenre() {
+  let value = event.target.value.toLowerCase();
+  let clone_movies = [...JSON.parse(data)];
+  let filteredList = clone_movies.filter((ele) => {
+    if (ele.genre.includes(value)) {
+      return true;
+    }
+  });
+  secMovie.innerHTML = "";
+  loadCard(filteredList);
+}
+function changeHandlerLanguage() {
+  let value = event.target.value.toLowerCase();
+  let clone_movies = [...JSON.parse(data)];
+  let filteredList = clone_movies.filter((ele) => {
+    return ele.language == value;
+  });
+  secMovie.innerHTML = "";
+  loadCard(filteredList);
+}
+filter_lang.addEventListener("change", changeHandlerLanguage);
+filter_genre.addEventListener("change", changeHandlerGenre);

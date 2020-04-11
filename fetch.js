@@ -1,25 +1,31 @@
+// accessing all movies on localstorage
 var movies = JSON.parse(localStorage.getItem("movies"));
 let id = JSON.parse(localStorage.getItem("curPage"));
-let movieSec = document.getElementById("seats");
+let ticket = document.getElementById("ticket");
+let poster = document.getElementById("poster");
 let paySec = document.getElementById("payment");
+let no_of_seats = 0;
 price = 0;
 
 let cur_movie;
+
 function loadPage() {
-  let div = document.createElement("div");
+  let div1 = document.createElement("div");
+  let div2 = document.createElement("div");
   for (key in movies) {
     if (movies[key].id == id.id) {
       cur_movie = movies[key];
     }
   }
-  div.innerHTML = `
-  <div class="row container">
-    <div class="col-md-6 pt-4"><img src=${cur_movie.img} />
-    <h2>${cur_movie.name}</h2>
-    </div>
-<div class="col-md-6">
+  div1.innerHTML = `
+   <img src=${cur_movie.img} />
+   <div class="shadow-lg text-center p-4">
+    <h2 class="text-success"> ${cur_movie.name}</h2>
+    <p class="text-danger">timings: ${cur_movie.timing.start} - ${cur_movie.timing.end} </p>
+    </div>`;
+  div2.innerHTML = `
 <div>
-<h2>seats</h2>
+<p class="lead">book your seats.</p>
 <div class="row col-md-12 border rounded border-dark shadow-lg p-4">
 ${cur_movie.seats.map((ele, idx) => {
   if (ele) {
@@ -42,15 +48,20 @@ ${cur_movie.seats.map((ele, idx) => {
   }
 })}
 </div>
-</div>
 <div>
   </div>
   
   `;
-
-  movieSec.appendChild(div);
+  poster.appendChild(div1);
+  ticket.appendChild(div2);
+  div1.className = "mt-4";
+  div2.className = "mt-4";
 }
+
+// loading poster when document loads.
 window.addEventListener("DOMContentLoaded", loadPage);
+
+// book seats according to availability
 let tiks = [];
 function select(idx) {
   let div = document.createElement("div");
@@ -59,24 +70,47 @@ function select(idx) {
     event.target.style.backgroundColor = "";
     price -= cur_movie.price;
     delete tiks[idx];
+    no_of_seats -= 1;
   } else {
     tiks[idx] = true;
     price += cur_movie.price;
+    no_of_seats += 1;
     event.target.style.backgroundColor = "green";
   }
   div.innerHTML = `<div class="border rounded p-4 shadow-lg mt-4 ">
-                    <h2>no of seats: </h2>
+                    ${
+                      no_of_seats < 2
+                        ? `<h2>${no_of_seats} seat selected </h2>`
+                        : `<h2>${no_of_seats} seats selected </h2>`
+                    }
+                    
                     <p class="lead" >your total cost is Rs ${price}</p>
-                    <button class="btn btn-outline-success" onclick ="payment()">Pay Now</button>
+                    ${
+                      no_of_seats == 0
+                        ? `<button class="btn btn-outline-dark" disabled>Pay Now</button>`
+                        : `
+                        <button
+                          class="btn btn-outline-success"
+                          onclick="payment()"
+                        >
+                          Pay Now
+                        </button>
+                      `
+                    }
+                    
                     </div>
                     `;
   paySec.innerHTML = "";
   paySec.appendChild(div);
 }
+
+// on click listener for payment
 function payment() {
+  let seats_booked = [];
   for (let i = 0; i < tiks.length; i++) {
     if (tiks[i]) {
       cur_movie.seats[i] = true;
+      seats_booked.push(i);
     }
   }
   let movieName = cur_movie.name;
@@ -86,6 +120,20 @@ function payment() {
     }
   }
   localStorage.setItem("movies", JSON.stringify(movies));
-  movieSec.innerHTML = "";
+  let allTickets = JSON.parse(localStorage.getItem("cart"));
+  let addToCart;
+  if (allTickets) {
+    addToCart = [...allTickets, { [movieName]: seats_booked }];
+  } else {
+    addToCart = [{ [movieName]: seats_booked }];
+  }
+  localStorage.setItem("cart", JSON.stringify(addToCart));
+  // clearing previous content and adding new.
+  ticket.innerHTML = "";
+  poster.innerHTML = "";
+  paySec.innerHTML = "";
   loadPage();
+  setTimeout(() => {
+    window.location = "payment.html";
+  }, 2000);
 }

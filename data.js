@@ -4,6 +4,8 @@ var movies = [
     id: 1,
     name: "Iron Man",
     price: 300,
+    genre: ["action", "war", "adventure", "superhero"],
+    language: "english",
     desc:
       "Iron Man is a 2008 American superhero film based on the Marvel Comics character of the same name. Produced by Marvel Studios and distributed by Paramount Pictures,[N 1] it is the first film in the Marvel Cinematic Universe. The film was directed by Jon Favreau from a screenplay by Mark Fergus and Hawk Ostby, and Art Marcum and Matt Holloway, and stars Robert Downey Jr. as Tony Stark / Iron Man, alongside Terrence Howard, Jeff Bridges, Shaun Toub, and Gwyneth Paltrow. In Iron Man, Tony Stark is an industrialist and master engineer who builds a mechanized suit of armor and becomes the superhero Iron Man.",
     img:
@@ -15,6 +17,8 @@ var movies = [
     id: 2,
     name: "Shawshank Redemption",
     price: 300,
+    language: "english",
+    genre: ["thriller", "war", "adventure"],
     img:
       "https://rukminim1.flixcart.com/image/352/352/poster/h/m/z/posterskart-the-shawshank-redemption-poster-pksr01-medium-original-imaebcuhbuhfhryb.jpeg?q=70",
     desc:
@@ -25,6 +29,8 @@ var movies = [
   {
     id: 3,
     name: "The Flash",
+    language: "hindi",
+    genre: ["action", "war", "adventure", "superhero"],
     price: 300,
     img:
       "https://rukminim1.flixcart.com/image/704/704/poster/y/z/t/medium-andathedmov867-ananyadesigns-flash-minimal-wall-poster-original-imaegts2gfhtx5be.jpeg?q=70",
@@ -37,6 +43,8 @@ var movies = [
     id: 4,
     name: "Before Sunrise",
     price: 300,
+    language: "spanish",
+    genre: ["drama", "romantic"],
     img:
       "https://images.fineartamerica.com/images/artworkimages/medium/2/no1011-my-before-sunrise-minimal-movie-poster-chungkong-art.jpg",
     desc:
@@ -47,6 +55,8 @@ var movies = [
 ];
 function loadData() {
   localStorage.setItem("movies", JSON.stringify(movies));
+  localStorage.setItem("cart", null);
+  localStorage.setItem("perPage", null);
 }
 let status = localStorage.getItem("movies");
 if (!status) {
