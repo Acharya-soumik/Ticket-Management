@@ -31,8 +31,9 @@ function loadPage() {
 ${cur_movie.seats.map((ele, idx) => {
   if (ele) {
     return `<div><img
+        onclick="alreadyBooked()"
         class="icon is_active"
-        src="https://image.flaticon.com/icons/svg/2052/2052398.svg"
+        src="https://image.flaticon.com/icons/svg/2517/2517145.svg"
       />
       <p class="text-dark text-center">${idx + 1}</p>
       <hr />
@@ -59,6 +60,10 @@ ${cur_movie.seats.map((ele, idx) => {
   div2.className = "mt-4";
 }
 
+// onclick for seats already booked by user
+function alreadyBooked() {
+  alert("this seat has already been booked.");
+}
 // loading poster when document loads.
 window.addEventListener("DOMContentLoaded", loadPage);
 
@@ -107,50 +112,57 @@ function select(idx) {
 
 // on click listener for payment
 function payment() {
-  let seats_booked = [];
-  for (let i = 0; i < tiks.length; i++) {
-    if (tiks[i]) {
-      cur_movie.seats[i] = true;
-      seats_booked.push(i);
+  let confirmBooking = confirm(
+    `your total bill is ${price}, are you sure you want to continue ?`
+  );
+  if (confirmBooking) {
+    let seats_booked = [];
+    for (let i = 0; i < tiks.length; i++) {
+      if (tiks[i]) {
+        cur_movie.seats[i] = true;
+        seats_booked.push(i);
+      }
     }
-  }
-  let movieName = cur_movie.name;
-  for (key in movies) {
-    if (movies[key].name == movieName) {
-      movies[key].seats = cur_movie.seats;
+    let movieName = cur_movie.name;
+    for (key in movies) {
+      if (movies[key].name == movieName) {
+        movies[key].seats = cur_movie.seats;
+      }
     }
-  }
-  localStorage.setItem("movies", JSON.stringify(movies));
-  let allTickets = JSON.parse(localStorage.getItem("cart"));
-  var addToCart;
-  if (allTickets) {
-    addToCart = [
-      ...allTickets,
-      {
-        name: movieName,
-        seats: seats_booked,
-        date: new Date(Date.now()).toLocaleDateString(),
-        time: new Date(Date.now()).toLocaleTimeString(),
-      },
-    ];
+    localStorage.setItem("movies", JSON.stringify(movies));
+    let allTickets = JSON.parse(localStorage.getItem("cart"));
+    var addToCart;
+    if (allTickets) {
+      addToCart = [
+        ...allTickets,
+        {
+          name: movieName,
+          seats: seats_booked,
+          date: new Date(Date.now()).toLocaleDateString(),
+          time: new Date(Date.now()).toLocaleTimeString(),
+        },
+      ];
+    } else {
+      addToCart = [
+        {
+          name: movieName,
+          seats: seats_booked,
+          date: new Date(Date.now()).toLocaleDateString(),
+          time: new Date(Date.now()).toLocaleTimeString(),
+        },
+      ];
+    }
+    localStorage.setItem("cart", JSON.stringify(addToCart));
+    // clearing previous content and adding new.
+    ticket.innerHTML = "";
+    poster.innerHTML = "";
+    paySec.innerHTML = "";
+    loadPage();
+    setTimeout(() => {
+      window.location = "payment.html";
+    }, 3000);
+    alert("redirecting to your cart");
   } else {
-    addToCart = [
-      {
-        name: movieName,
-        seats: seats_booked,
-        date: new Date(Date.now()).toLocaleDateString(),
-        time: new Date(Date.now()).toLocaleTimeString(),
-      },
-    ];
+    alert("cancelled");
   }
-  localStorage.setItem("cart", JSON.stringify(addToCart));
-  // clearing previous content and adding new.
-  ticket.innerHTML = "";
-  poster.innerHTML = "";
-  paySec.innerHTML = "";
-  loadPage();
-  setTimeout(() => {
-    window.location = "payment.html";
-  }, 3000);
-  alert("redirecting to your cart");
 }

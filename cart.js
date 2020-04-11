@@ -24,31 +24,38 @@ function loadCard() {
   cart_div.appendChild(div);
 }
 function cancelBooking() {
-  let movieName = event.target.value;
-  let movieInCart = [];
-  let movieToRemove;
-  allBookings.forEach((ele) => {
-    if (ele.name != movieName) {
-      movieInCart.push(ele);
-    } else {
-      movieToRemove = ele;
-    }
-  });
-  localStorage.setItem("cart", JSON.stringify(movieInCart));
-  var allmovies = JSON.parse(localStorage.getItem("movies"));
-  for (let i = 0; i < allmovies.length; i++) {
-    let ele = allmovies[i];
-    if (ele.name == movieToRemove.name) {
-      let totalSeats = ele.seats;
-      for (let j = 0; j < movieToRemove.seats.length; j++) {
-        let seatToCancel = movieToRemove.seats[j];
-        totalSeats[seatToCancel] = false;
+  let confirmCancel = confirm(
+    "are you sure you want to cancel, you will only get 50% of your amount ?"
+  );
+  if (confirmCancel) {
+    let movieName = event.target.value;
+    let movieInCart = [];
+    let movieToRemove;
+    allBookings.forEach((ele) => {
+      if (ele.name != movieName) {
+        movieInCart.push(ele);
+      } else {
+        movieToRemove = ele;
+      }
+    });
+    localStorage.setItem("cart", JSON.stringify(movieInCart));
+    var allmovies = JSON.parse(localStorage.getItem("movies"));
+    for (let i = 0; i < allmovies.length; i++) {
+      let ele = allmovies[i];
+      if (ele.name == movieToRemove.name) {
+        let totalSeats = ele.seats;
+        for (let j = 0; j < movieToRemove.seats.length; j++) {
+          let seatToCancel = movieToRemove.seats[j];
+          totalSeats[seatToCancel] = false;
+        }
       }
     }
+    localStorage.setItem("cart", JSON.stringify(movieInCart));
+    localStorage.setItem("movies", JSON.stringify(allmovies));
+    cart_div.innerHTML = "";
+    alert("your booking has been cancelled");
+    loadCard();
+  } else {
+    alert("you confirmed your cancellations !!");
   }
-  localStorage.setItem("cart", JSON.stringify(movieInCart));
-  localStorage.setItem("movies", JSON.stringify(allmovies));
-  cart_div.innerHTML = "";
-  alert("your booking has been cancelled");
-  loadCard();
 }
