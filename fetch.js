@@ -27,7 +27,7 @@ function loadPage() {
   div2.innerHTML = `
 <div>
 <p class="lead">book your seats.</p>
-<div class="row col-md-12 border rounded border-dark shadow-lg p-4">
+<div class="row col-md-12 m-auto border rounded border-dark shadow-lg p-4">
 ${cur_movie.seats.map((ele, idx) => {
   if (ele) {
     return `<div><img
