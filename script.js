@@ -42,7 +42,7 @@ window.addEventListener("DOMContentLoaded", loadCard);
 
 function newMovie(id) {
   localStorage.setItem("curPage", JSON.stringify({ id }));
-  window.location = "/movie.html";
+  window.location = "movie.html";
 }
 
 // filter
