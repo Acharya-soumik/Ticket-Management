@@ -12,28 +12,26 @@ function loadCard(value) {
     div.className = "col-md-4 m-4";
     let card = "";
     card = `<div class="card shadow-lg style="height:550px">
-    <img src=${ele.img} style="height:430px; width:100%" class="card-img-top" alt="card poster">
-    <div class="card-body">
-    <h3 class="card-title">${ele.name}</h3>
-    <div class="accordion" id="accordionExample">
-    <div class="">
-    <div class="" id="headingTwo">
-      <h2 class="mb-0">
-        <small class="text-dark" type="buttoallMovies-toggle="collapsallMovies-target=#${ele.name} aria-expanded="false" aria-controls="${ele.name}">
-          view description...
-        </small>
-      </h2>
-    </div>
-    <div id=${ele.name} class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-      <div class="card-body">
-      ${ele.desc}
-      </div>
-    </div>
-  </div>
-  </div>
-    <button onclick ="newMovie(${ele.id})" class="btn btn-primary mt-4">Book Now</button>
-    </div>
-    </div>`;
+              <img src=${ele.img} style="height:430px; width:100%" class="card-img-top" alt="card poster">
+              <div class="card-body">
+              <h3 class="card-title">${ele.name}</h3>
+              <div class="accordion" id="accordionExample">
+              <div id="headingTwo">
+                <h2 class="mb-0">
+                  <small class="btn btn-ouline-light collapsed" type="button" data-toggle="collapse" data-target=#${ele.name} aria-expanded="false" aria-controls="collapseTwo">
+                    view description
+                  </small>
+                </h2>
+              </div>
+              <div id=${ele.name} class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                ${ele.desc}
+                </div>
+              </div>
+            </div>
+              <button onclick ="newMovie(${ele.id})" class="btn btn-primary mt-4">Book Now</button>
+              </div>
+            </div>`;
     div.innerHTML = card;
     secMovie.appendChild(div);
   });
@@ -52,22 +50,32 @@ let filter_lang = document.getElementById("filter_language");
 let filter_genre = document.getElementById("filter_genre");
 
 function changeHandlerGenre() {
+  let filteredList;
   let value = event.target.value.toLowerCase();
-  let clone_movies = [...JSON.parse(data)];
-  let filteredList = clone_movies.filter((ele) => {
-    if (ele.genre.includes(value)) {
-      return true;
-    }
-  });
+  if (value == "all") {
+    filteredList = JSON.parse(data);
+  } else {
+    let clone_movies = [...JSON.parse(data)];
+    filteredList = clone_movies.filter((ele) => {
+      if (ele.genre.includes(value)) {
+        return true;
+      }
+    });
+  }
   secMovie.innerHTML = "";
   loadCard(filteredList);
 }
 function changeHandlerLanguage() {
+  let filteredList;
   let value = event.target.value.toLowerCase();
-  let clone_movies = [...JSON.parse(data)];
-  let filteredList = clone_movies.filter((ele) => {
-    return ele.language == value;
-  });
+  if (value == "all") {
+    filteredList = JSON.parse(data);
+  } else {
+    let clone_movies = [...JSON.parse(data)];
+    filteredList = clone_movies.filter((ele) => {
+      return ele.language == value;
+    });
+  }
   secMovie.innerHTML = "";
   loadCard(filteredList);
 }

@@ -18,7 +18,7 @@ function loadPage() {
     }
   }
   div1.innerHTML = `
-   <img src=${cur_movie.img} />
+   <img style="width:100%" src=${cur_movie.img} />
    <div class="shadow-lg text-center p-4">
     <h2 class="text-success"> ${cur_movie.name}</h2>
     <p class="text-danger">timings: ${cur_movie.timing.start} - ${cur_movie.timing.end} </p>
@@ -121,11 +121,26 @@ function payment() {
   }
   localStorage.setItem("movies", JSON.stringify(movies));
   let allTickets = JSON.parse(localStorage.getItem("cart"));
-  let addToCart;
+  var addToCart;
   if (allTickets) {
-    addToCart = [...allTickets, { [movieName]: seats_booked }];
+    addToCart = [
+      ...allTickets,
+      {
+        name: movieName,
+        seats: seats_booked,
+        date: new Date(Date.now()).toLocaleDateString(),
+        time: new Date(Date.now()).toLocaleTimeString(),
+      },
+    ];
   } else {
-    addToCart = [{ [movieName]: seats_booked }];
+    addToCart = [
+      {
+        name: movieName,
+        seats: seats_booked,
+        date: new Date(Date.now()).toLocaleDateString(),
+        time: new Date(Date.now()).toLocaleTimeString(),
+      },
+    ];
   }
   localStorage.setItem("cart", JSON.stringify(addToCart));
   // clearing previous content and adding new.
