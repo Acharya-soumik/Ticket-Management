@@ -12,3 +12,8 @@
 3. JavaScript
 4. Local Storage
 5. Bootstrap
+
+## Project Demo
+Live Preview https://ticket-management.netlify.com/
+
+Video Demonstration https://drive.google.com/open?id=1_7993z-n6e1x0K7CjhBtxWQBPIby_h4_ 
