@@ -6,6 +6,7 @@ var movies = [
     price: 300,
     genre: ["action", "war", "adventure", "superhero"],
     language: "english",
+    date: "10th October 2020",
     desc:
       "Iron Man is a 2008 American superhero film based on the Marvel Comics character of the same name. Produced by Marvel Studios and distributed by Paramount Pictures,[N 1] it is the first film in the Marvel Cinematic Universe. The film was directed by Jon Favreau from a screenplay by Mark Fergus and Hawk Ostby, and Art Marcum and Matt Holloway, and stars Robert Downey Jr. as Tony Stark / Iron Man, alongside Terrence Howard, Jeff Bridges, Shaun Toub, and Gwyneth Paltrow. In Iron Man, Tony Stark is an industrialist and master engineer who builds a mechanized suit of armor and becomes the superhero Iron Man.",
     img:
@@ -18,6 +19,7 @@ var movies = [
     name: "Shawshank Redemption",
     price: 300,
     language: "english",
+    date: "10th October 2020",
     genre: ["thriller", "war", "adventure"],
     img:
       "https://rukminim1.flixcart.com/image/352/352/poster/h/m/z/posterskart-the-shawshank-redemption-poster-pksr01-medium-original-imaebcuhbuhfhryb.jpeg?q=70",
@@ -32,6 +34,7 @@ var movies = [
     language: "hindi",
     genre: ["action", "war", "adventure", "superhero"],
     price: 300,
+    date: "2nd December 2020",
     img:
       "https://rukminim1.flixcart.com/image/704/704/poster/y/z/t/medium-andathedmov867-ananyadesigns-flash-minimal-wall-poster-original-imaegts2gfhtx5be.jpeg?q=70",
     desc:
@@ -44,6 +47,7 @@ var movies = [
     name: "Before Sunrise",
     price: 300,
     language: "spanish",
+    date: "7th April 2020",
     genre: ["drama", "romantic"],
     img:
       "https://images.fineartamerica.com/images/artworkimages/medium/2/no1011-my-before-sunrise-minimal-movie-poster-chungkong-art.jpg",

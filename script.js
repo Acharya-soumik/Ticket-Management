@@ -11,7 +11,7 @@ function loadCard(value) {
     let div = document.createElement("div");
     div.className = "col-md-4 m-4";
     let card = "";
-    card = `<div class="card shadow-lg style="height:550px">
+    card = `<div class="card poster_card shadow-lg style="height:550px">
               <img src=${ele.img} style="height:430px; width:100%" class="card-img-top" alt="card poster">
               <div class="card-body">
               <h3 class="card-title">${ele.name}</h3>

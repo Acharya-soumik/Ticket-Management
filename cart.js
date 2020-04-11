@@ -12,7 +12,7 @@ function loadCard() {
                         <p>booked at date: ${obj.date} 
                                     time: ${obj.time}</p>
                         <p> seats booked are ${obj.seats.map((ele) => {
-                          return ele.toString();
+                          return (ele + 1).toString();
                         })} <p>
                         </hr>
                         <button id="cancel" value="${obj.name}"
@@ -49,5 +49,6 @@ function cancelBooking() {
   localStorage.setItem("cart", JSON.stringify(movieInCart));
   localStorage.setItem("movies", JSON.stringify(allmovies));
   cart_div.innerHTML = "";
+  alert("your booking has been cancelled");
   loadCard();
 }

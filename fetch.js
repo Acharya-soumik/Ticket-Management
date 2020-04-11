@@ -22,6 +22,7 @@ function loadPage() {
    <div class="shadow-lg text-center p-4">
     <h2 class="text-success"> ${cur_movie.name}</h2>
     <p class="text-danger">timings: ${cur_movie.timing.start} - ${cur_movie.timing.end} </p>
+    <p>${cur_movie.date}</p>
     </div>`;
   div2.innerHTML = `
 <div>
@@ -150,5 +151,6 @@ function payment() {
   loadPage();
   setTimeout(() => {
     window.location = "payment.html";
-  }, 2000);
+  }, 3000);
+  alert("redirecting to your cart");
 }
