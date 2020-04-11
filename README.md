@@ -16,4 +16,4 @@
 ## Project Demo
 Live Preview https://ticket-management.netlify.com/
 
-Video Demonstration https://drive.google.com/open?id=1_7993z-n6e1x0K7CjhBtxWQBPIby_h4
+Video Demonstration https://drive.google.com/file/d/1_7993z-n6e1x0K7CjhBtxWQBPIby_h4_/view?usp=sharing
