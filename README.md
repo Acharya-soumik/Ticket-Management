@@ -1,4 +1,9 @@
 # Ticket-Management
+
+## Description
+Look  for movies and select seats that are availbe for booking. Get a ticket after the payment is done.
+Also user can cancel a ticket ,if he wants to. Filter out movies based on genre and language.   
+
 ## Features implemented:
 1. Add movies
 2. Select seats
